@@ -1,0 +1,103 @@
+name: Build and Push Yolks
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'nodejs/**'
+      - 'python/**'
+      - '.github/workflows/build-yolks.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build ${{ matrix.tag }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Node.js
+          - tag: nodejs_14
+            context: ./nodejs/14
+          - tag: nodejs_15
+            context: ./nodejs/15
+          - tag: nodejs_16
+            context: ./nodejs/16
+          - tag: nodejs_17
+            context: ./nodejs/17
+          - tag: nodejs_18
+            context: ./nodejs/18
+          - tag: nodejs_19
+            context: ./nodejs/19
+          - tag: nodejs_20
+            context: ./nodejs/20
+          - tag: nodejs_21
+            context: ./nodejs/21
+          - tag: nodejs_22
+            context: ./nodejs/22
+          - tag: nodejs_23
+            context: ./nodejs/23
+          - tag: nodejs_24
+            context: ./nodejs/24
+          - tag: nodejs_25
+            context: ./nodejs/25
+          - tag: nodejs_26
+            context: ./nodejs/26
+          # Python
+          - tag: python_2.7
+            context: ./python/2.7
+          - tag: python_3.7
+            context: ./python/3.7
+          - tag: python_3.8
+            context: ./python/3.8
+          - tag: python_3.9
+            context: ./python/3.9
+          - tag: python_3.10
+            context: ./python/3.10
+          - tag: python_3.11
+            context: ./python/3.11
+          - tag: python_3.12
+            context: ./python/3.12
+          - tag: python_3.13
+            context: ./python/3.13
+          - tag: python_3.14
+            context: ./python/3.14
+          - tag: python_3.15
+            context: ./python/3.15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Prepare lowercase image repository
+        run: |
+          echo "IMAGE_REPO=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/yolks" >> ${GITHUB_ENV}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.context }}
+          file: ${{ matrix.context }}/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ env.IMAGE_REPO }}:${{ matrix.tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
