@@ -27,6 +27,8 @@ RUN echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+RUN npm install -g typescript ts-node @types/node || npm install -g typescript@4 ts-node@10 @types/node
+
 RUN useradd -d /home/container -m container
 
 COPY ./entrypoint.sh /entrypoint.sh
