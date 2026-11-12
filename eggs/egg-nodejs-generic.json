@@ -4,10 +4,10 @@
         "version": "PTDL_v2",
         "update_url": null
     },
-    "exported_at": "2026-11-13T01:00:00+07:00",
+    "exported_at": "2026-11-13T01:57:00+07:00",
     "name": "Node.js Generic (diaww.dev)",
     "author": "ferdiazprasida@gmail.com",
-    "description": "Custom high-performance generic Node.js egg by diaww.dev. Supports Node.js 14 to 26, auto git pull, auto dependency installation, and custom entrypoints.",
+    "description": "Custom high-performance generic Node.js & TypeScript egg by diaww.dev (parkervcp style). Supports Node.js 14 to 26, auto git pull, auto dependency install, ts-node support, and full variable compatibility.",
     "features": null,
     "docker_images": {
         "Node.js 26 (diaww.dev)": "ghcr.io/diaz1414/ptero-yolks:nodejs_26",
@@ -25,7 +25,7 @@
         "Node.js 14 (LTS) (diaww.dev)": "ghcr.io/diaz1414/ptero-yolks:nodejs_14"
     },
     "file_denylist": [],
-    "startup": "echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Initializing Node.js runtime environment...\"; if [ -d .git ] && [ \"{{AUTO_UPDATE}}\" == \"1\" ]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Synchronizing latest repository updates via git pull...\"; git pull; fi; if [ ! -z \"{{NODE_PACKAGES}}\" ]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Installing specified additional npm packages ({{NODE_PACKAGES}})...\"; npm install {{NODE_PACKAGES}}; fi; if [ -f /home/container/package.json ]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Installing dependencies from package.json...\"; npm install --production; fi; echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Booting application via node {{MAIN_FILE}}...\"; /usr/local/bin/node /home/container/{{MAIN_FILE}} {{ARGS}}",
+    "startup": "echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Initializing Node.js runtime environment...\"; if [[ -d .git ]] && [[ \"{{AUTO_UPDATE}}\" == \"1\" ]]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Updating repository via git pull...\"; git pull; fi; if [[ ! -z \"{{NODE_PACKAGES}}\" ]]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Installing extra packages ({{NODE_PACKAGES}})...\"; /usr/local/bin/npm install {{NODE_PACKAGES}}; fi; if [[ ! -z \"{{UNNODE_PACKAGES}}\" ]]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Uninstalling packages ({{UNNODE_PACKAGES}})...\"; /usr/local/bin/npm uninstall {{UNNODE_PACKAGES}}; fi; if [ -f /home/container/package.json ]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Installing dependencies from package.json...\"; /usr/local/bin/npm install; fi; if [[ \"${MAIN_FILE}\" == *.js ]]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Booting application via node {{MAIN_FILE}}...\"; /usr/local/bin/node \"/home/container/{{MAIN_FILE}}\" {{NODE_ARGS}}; else echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Booting TypeScript application via ts-node {{MAIN_FILE}}...\"; /usr/local/bin/ts-node --esm \"/home/container/{{MAIN_FILE}}\" {{NODE_ARGS}}; fi",
     "config": {
         "files": "{}",
         "startup": "{\r\n    \"done\": \"diaww.dev\"\r\n}",
@@ -35,7 +35,7 @@
     },
     "scripts": {
         "installation": {
-            "script": "#!/bin/bash\n# DIAWW.DEV - Pterodactyl Node.js Installation Script\n\napt update -y\napt install -y git curl ca-certificates\n\nmkdir -p /mnt/server\ncd /mnt/server\n\nif [ \"${USER_UPLOAD}\" == \"true\" ] || [ \"${USER_UPLOAD}\" == \"1\" ]; then\n    echo -e \"\\033[1;33m[DIAWW.DEV]\\033[0m USER_UPLOAD enabled. Skipping git clone.\"\n    exit 0\nfi\n\nif [ -z \"${GIT_ADDRESS}\" ]; then\n    echo -e \"\\033[1;33m[DIAWW.DEV]\\033[0m No GIT_ADDRESS specified. Creating sample index.js...\"\n    if [ ! -f index.js ]; then\n        cat << 'EOF' > index.js\nconsole.log(\"[DIAWW.DEV] Node.js container is up and running!\");\nsetInterval(() => {\n    console.log(\"[DIAWW.DEV] Server heartbeat tick: \" + new Date().toISOString());\n}, 30000);\nEOF\n    fi\n    exit 0\nfi\n\nGIT_TARGET=\"${GIT_ADDRESS}\"\nif [ ! -z \"${GIT_USERNAME}\" ] && [ ! -z \"${GIT_ACCESS_TOKEN}\" ]; then\n    GIT_TARGET=\"https://${GIT_USERNAME}:${GIT_ACCESS_TOKEN}@$(echo -e ${GIT_ADDRESS} | cut -d/ -f3-)\"\nfi\n\necho -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Cloning repository from ${GIT_ADDRESS}...\"\nif [ -z \"${BRANCH}\" ]; then\n    git clone ${GIT_TARGET} .\nelse\n    git clone --single-branch --branch ${BRANCH} ${GIT_TARGET} .\nfi\n\nif [ -f package.json ]; then\n    echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Installing production dependencies...\"\n    npm install --production\nfi\n\necho -e \"\\033[1;32m[DIAWW.DEV]\\033[0m Installation finished successfully!\"",
+            "script": "#!/bin/bash\n# DIAWW.DEV - Pterodactyl Node.js Installation Script\n\napt update -y\napt install -y git curl ca-certificates\n\nmkdir -p /mnt/server\ncd /mnt/server\n\nif [ \"${USER_UPLOAD}\" == \"true\" ] || [ \"${USER_UPLOAD}\" == \"1\" ]; then\n    echo -e \"\\033[1;33m[DIAWW.DEV]\\033[0m USER_UPLOAD enabled. Skipping git clone.\"\n    exit 0\nfi\n\nif [ -z \"${GIT_ADDRESS}\" ]; then\n    echo -e \"\\033[1;33m[DIAWW.DEV]\\033[0m No GIT_ADDRESS specified. Creating default index.js...\"\n    if [ ! -f index.js ]; then\n        cat << 'EOF' > index.js\nconsole.log(\"[DIAWW.DEV] Node.js container is up and running!\");\nsetInterval(() => {\n    console.log(\"[DIAWW.DEV] Server heartbeat tick: \" + new Date().toISOString());\n}, 30000);\nEOF\n    fi\n    exit 0\nfi\n\nGIT_TARGET=\"${GIT_ADDRESS}\"\nif [ ! -z \"${GIT_USERNAME}\" ] && [ ! -z \"${GIT_ACCESS_TOKEN}\" ]; then\n    GIT_TARGET=\"https://${GIT_USERNAME}:${GIT_ACCESS_TOKEN}@$(echo -e ${GIT_ADDRESS} | cut -d/ -f3-)\"\nfi\n\necho -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Cloning repository from ${GIT_ADDRESS}...\"\nif [ -z \"${BRANCH}\" ]; then\n    git clone ${GIT_TARGET} .\nelse\n    git clone --single-branch --branch ${BRANCH} ${GIT_TARGET} .\nfi\n\nif [ -f package.json ]; then\n    echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Installing package.json dependencies...\"\n    npm install\nfi\n\necho -e \"\\033[1;32m[DIAWW.DEV]\\033[0m Installation complete!\"",
             "container": "node:22-slim",
             "entrypoint": "bash"
         }
@@ -43,7 +43,7 @@
     "variables": [
         {
             "name": "Main Application File",
-            "description": "The entrypoint JavaScript file to run with Node.js.",
+            "description": "The entrypoint file to run with Node.js or ts-node (e.g. index.js or index.ts).",
             "env_variable": "MAIN_FILE",
             "default_value": "index.js",
             "user_viewable": true,
@@ -62,8 +62,18 @@
             "field_type": "text"
         },
         {
+            "name": "Additional Node.js Arguments",
+            "description": "Additional CLI arguments or flags passed to the Node.js / ts-node process.",
+            "env_variable": "NODE_ARGS",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string",
+            "field_type": "text"
+        },
+        {
             "name": "Additional NPM Packages",
-            "description": "Space-separated list of extra NPM packages to install automatically on container startup.",
+            "description": "Space-separated list of extra NPM packages to install automatically on startup.",
             "env_variable": "NODE_PACKAGES",
             "default_value": "",
             "user_viewable": true,
@@ -72,9 +82,9 @@
             "field_type": "text"
         },
         {
-            "name": "Additional Node Arguments",
-            "description": "Additional CLI arguments or flags passed to the Node.js process (e.g., --trace-warnings).",
-            "env_variable": "ARGS",
+            "name": "Uninstalled NPM Packages",
+            "description": "Space-separated list of NPM packages to uninstall on startup.",
+            "env_variable": "UNNODE_PACKAGES",
             "default_value": "",
             "user_viewable": true,
             "user_editable": true,
@@ -103,7 +113,7 @@
         },
         {
             "name": "User Upload Only",
-            "description": "Set to 1 or true if you will upload your files manually via SFTP instead of cloning a Git repository.",
+            "description": "Set to 1 or true if you upload files manually via SFTP instead of cloning a Git repository.",
             "env_variable": "USER_UPLOAD",
             "default_value": "0",
             "user_viewable": true,
