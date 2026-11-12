@@ -89,7 +89,7 @@ jobs:
 
       - name: Prepare lowercase image repository
         run: |
-          echo "IMAGE_REPO=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/yolks" >> ${GITHUB_ENV}
+          echo "IMAGE_REPO=ghcr.io/${GITHUB_REPOSITORY,,}" >> ${GITHUB_ENV}
 
       - name: Build and push
         uses: docker/build-push-action@v6
