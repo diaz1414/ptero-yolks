@@ -1,7 +1,7 @@
 FROM --platform=$TARGETOS/$TARGETARCH python:3.8-slim
 
 LABEL author="diaww.dev" maintainer="ferdiazprasida@gmail.com"
-LABEL org.opencontainers.image.source="https://github.com/DIAWWDEV/yolks"
+LABEL org.opencontainers.image.source="https://github.com/diaz1414/ptero-yolks"
 
 RUN if [ -f /etc/apt/sources.list ]; then \
         if grep -q 'Debian GNU/Linux 10' /etc/issue 2>/dev/null || grep -q 'buster' /etc/apt/sources.list 2>/dev/null; then \
