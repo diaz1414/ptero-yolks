@@ -3,18 +3,16 @@ FROM --platform=$TARGETOS/$TARGETARCH node:18-slim
 LABEL author="diaww.dev" maintainer="ferdiazprasida@gmail.com"
 LABEL org.opencontainers.image.source="https://github.com/diaz1414/ptero-yolks"
 
-RUN if [ -f /etc/apt/sources.list ]; then \
-        if grep -q 'Debian GNU/Linux 10' /etc/issue 2>/dev/null || grep -q 'buster' /etc/apt/sources.list 2>/dev/null; then \
+RUN echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until \
+    && if [ -f /etc/apt/sources.list ]; then \
+        if grep -q -E 'buster|stretch' /etc/apt/sources.list 2>/dev/null; then \
             sed -i 's|deb.debian.org/debian|archive.debian.org/debian|g' /etc/apt/sources.list && \
             sed -i 's|security.debian.org/debian-security|archive.debian.org/debian-security|g' /etc/apt/sources.list && \
-            sed -i '/buster-updates/d' /etc/apt/sources.list ; \
-        elif grep -q 'Debian GNU/Linux 9' /etc/issue 2>/dev/null || grep -q 'stretch' /etc/apt/sources.list 2>/dev/null; then \
-            sed -i 's|deb.debian.org/debian|archive.debian.org/debian|g' /etc/apt/sources.list && \
             sed -i 's|security.debian.org|archive.debian.org|g' /etc/apt/sources.list && \
-            sed -i '/stretch-updates/d' /etc/apt/sources.list ; \
+            sed -i '/updates/d' /etc/apt/sources.list ; \
         fi ; \
     fi \
-    && apt-get update --allow-releaseinfo-change \
+    && apt-get update -o Acquire::Check-Valid-Until=false --allow-releaseinfo-change \
     && apt-get install -y --no-install-recommends \
         ca-certificates \
         curl \
