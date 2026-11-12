@@ -201,3 +201,4 @@ GitHub Actions akan menjalankan proses build matrix untuk seluruh 23 image secar
 <div align="center">
   <sub>Dibuat dengan ❤️ dan standar rekayasa terbaik untuk komunitas Pterodactyl Panel oleh <b>diaww.dev</b></sub>
 </div>
+
