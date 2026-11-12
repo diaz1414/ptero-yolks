@@ -22,18 +22,8 @@ jobs:
       matrix:
         include:
           # Node.js
-          - tag: nodejs_14
-            context: ./nodejs/14
-          - tag: nodejs_15
-            context: ./nodejs/15
-          - tag: nodejs_16
-            context: ./nodejs/16
-          - tag: nodejs_17
-            context: ./nodejs/17
           - tag: nodejs_18
             context: ./nodejs/18
-          - tag: nodejs_19
-            context: ./nodejs/19
           - tag: nodejs_20
             context: ./nodejs/20
           - tag: nodejs_21

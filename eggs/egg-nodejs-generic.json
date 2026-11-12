@@ -7,7 +7,7 @@
     "exported_at": "2026-11-13T02:18:00+07:00",
     "name": "Node.js Generic (diaww.dev)",
     "author": "ferdiazprasida@gmail.com",
-    "description": "Custom high-performance generic Node.js & TypeScript egg by diaww.dev (parkervcp style). Supports Node.js 14 to 26, custom/optional package.json, auto git pull, auto dependency install, ts-node support, and full variable compatibility.",
+    "description": "Custom high-performance generic Node.js & TypeScript egg by diaww.dev (parkervcp style). Supports Node.js 18, 20, 21, 22, 23, 24, 25, 26, custom/optional package.json, auto git pull, auto dependency install, ts-node support, and full variable compatibility.",
     "features": null,
     "docker_images": {
         "Node.js 26 (diaww.dev)": "ghcr.io/diaz1414/ptero-yolks:nodejs_26",
@@ -17,12 +17,7 @@
         "Node.js 22 (LTS) (diaww.dev)": "ghcr.io/diaz1414/ptero-yolks:nodejs_22",
         "Node.js 21 (diaww.dev)": "ghcr.io/diaz1414/ptero-yolks:nodejs_21",
         "Node.js 20 (LTS) (diaww.dev)": "ghcr.io/diaz1414/ptero-yolks:nodejs_20",
-        "Node.js 19 (diaww.dev)": "ghcr.io/diaz1414/ptero-yolks:nodejs_19",
-        "Node.js 18 (LTS) (diaww.dev)": "ghcr.io/diaz1414/ptero-yolks:nodejs_18",
-        "Node.js 17 (diaww.dev)": "ghcr.io/diaz1414/ptero-yolks:nodejs_17",
-        "Node.js 16 (LTS) (diaww.dev)": "ghcr.io/diaz1414/ptero-yolks:nodejs_16",
-        "Node.js 15 (diaww.dev)": "ghcr.io/diaz1414/ptero-yolks:nodejs_15",
-        "Node.js 14 (LTS) (diaww.dev)": "ghcr.io/diaz1414/ptero-yolks:nodejs_14"
+        "Node.js 18 (LTS) (diaww.dev)": "ghcr.io/diaz1414/ptero-yolks:nodejs_18"
     },
     "file_denylist": [],
     "startup": "echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Initializing Node.js runtime environment...\"; if [[ -d .git ]] && [[ \"{{AUTO_UPDATE}}\" == \"1\" ]]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Updating repository via git pull...\"; git pull; fi; if [[ ! -z \"{{NODE_PACKAGES}}\" ]]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Installing extra packages ({{NODE_PACKAGES}})...\"; /usr/local/bin/npm install {{NODE_PACKAGES}}; fi; if [[ ! -z \"{{UNNODE_PACKAGES}}\" ]]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Uninstalling packages ({{UNNODE_PACKAGES}})...\"; /usr/local/bin/npm uninstall {{UNNODE_PACKAGES}}; fi; PKG_FILE=\"{{PACKAGE_FILE}}\"; if [ -z \"${PKG_FILE}\" ]; then PKG_FILE=\"package.json\"; fi; if [ -f \"/home/container/${PKG_FILE}\" ]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Installing dependencies from ${PKG_FILE}...\"; if [ \"${PKG_FILE}\" != \"package.json\" ]; then cp \"/home/container/${PKG_FILE}\" /home/container/package.json 2>/dev/null || true; fi; /usr/local/bin/npm install; fi; if [[ \"${MAIN_FILE}\" == *.js ]]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Booting application via node {{MAIN_FILE}}...\"; /usr/local/bin/node \"/home/container/{{MAIN_FILE}}\" {{NODE_ARGS}}; else echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Booting TypeScript application via ts-node {{MAIN_FILE}}...\"; /usr/local/bin/ts-node --esm \"/home/container/{{MAIN_FILE}}\" {{NODE_ARGS}}; fi",
