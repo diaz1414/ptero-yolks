@@ -4,10 +4,10 @@
         "version": "PTDL_v2",
         "update_url": null
     },
-    "exported_at": "2026-11-13T01:57:00+07:00",
+    "exported_at": "2026-11-13T02:18:00+07:00",
     "name": "Python Generic (diaww.dev)",
     "author": "ferdiazprasida@gmail.com",
-    "description": "Custom high-performance generic Python egg by diaww.dev (parkervcp style). Supports Python 2.7 and 3.7 to 3.15, auto git pull, auto requirements.txt install, and full variable compatibility.",
+    "description": "Custom high-performance generic Python egg by diaww.dev (parkervcp style). Supports Python 2.7 and 3.7 to 3.15, custom/optional requirements.txt, auto git pull, auto dependency install, and full variable compatibility.",
     "features": null,
     "docker_images": {
         "Python 3.15 (diaww.dev)": "ghcr.io/diaz1414/ptero-yolks:python_3.15",
@@ -22,7 +22,7 @@
         "Python 2.7 (Legacy) (diaww.dev)": "ghcr.io/diaz1414/ptero-yolks:python_2.7"
     },
     "file_denylist": [],
-    "startup": "echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Initializing Python runtime environment...\"; if [[ -d .git ]] && [[ \"{{AUTO_UPDATE}}\" == \"1\" ]]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Updating repository via git pull...\"; git pull; fi; if [[ ! -z \"{{PY_PACKAGES}}\" ]]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Installing extra packages ({{PY_PACKAGES}})...\"; pip install -U --no-cache-dir {{PY_PACKAGES}}; fi; if [[ ! -z \"{{UNPY_PACKAGES}}\" ]]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Uninstalling packages ({{UNPY_PACKAGES}})...\"; pip uninstall -y {{UNPY_PACKAGES}}; fi; if [ -f /home/container/requirements.txt ]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Installing dependencies from requirements.txt...\"; pip install -U --no-cache-dir -r requirements.txt; fi; echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Booting application via python {{PY_FILE}}...\"; /usr/local/bin/python \"/home/container/{{PY_FILE}}\" {{PY_ARGS}}",
+    "startup": "echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Initializing Python runtime environment...\"; if [[ -d .git ]] && [[ \"{{AUTO_UPDATE}}\" == \"1\" ]]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Updating repository via git pull...\"; git pull; fi; if [[ ! -z \"{{PY_PACKAGES}}\" ]]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Installing extra packages ({{PY_PACKAGES}})...\"; pip install -U --no-cache-dir {{PY_PACKAGES}}; fi; if [[ ! -z \"{{UNPY_PACKAGES}}\" ]]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Uninstalling packages ({{UNPY_PACKAGES}})...\"; pip uninstall -y {{UNPY_PACKAGES}}; fi; REQ_FILE=\"{{REQUIREMENTS_FILE}}\"; if [ -z \"${REQ_FILE}\" ]; then REQ_FILE=\"requirements.txt\"; fi; if [ -f \"/home/container/${REQ_FILE}\" ]; then echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Installing dependencies from ${REQ_FILE}...\"; pip install -U --no-cache-dir -r \"/home/container/${REQ_FILE}\"; fi; echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Booting application via python {{PY_FILE}}...\"; /usr/local/bin/python \"/home/container/{{PY_FILE}}\" {{PY_ARGS}}",
     "config": {
         "files": "{}",
         "startup": "{\r\n    \"done\": \"diaww.dev\"\r\n}",
@@ -32,7 +32,7 @@
     },
     "scripts": {
         "installation": {
-            "script": "#!/bin/bash\n# DIAWW.DEV - Pterodactyl Python Installation Script\n\napt update -y\napt install -y git curl ca-certificates python3 python3-pip\n\nmkdir -p /mnt/server\ncd /mnt/server\n\nif [ \"${USER_UPLOAD}\" == \"true\" ] || [ \"${USER_UPLOAD}\" == \"1\" ]; then\n    echo -e \"\\033[1;33m[DIAWW.DEV]\\033[0m USER_UPLOAD enabled. Skipping git clone.\"\n    exit 0\nfi\n\nif [ -z \"${GIT_ADDRESS}\" ]; then\n    echo -e \"\\033[1;33m[DIAWW.DEV]\\033[0m No GIT_ADDRESS specified. Creating default main.py...\"\n    if [ ! -f main.py ]; then\n        cat << 'EOF' > main.py\nimport time\nfrom datetime import datetime\n\nprint(\"[DIAWW.DEV] Python container is up and running!\")\nwhile True:\n    print(f\"[DIAWW.DEV] Server heartbeat tick: {datetime.utcnow().isoformat()}\")\n    time.sleep(30)\nEOF\n    fi\n    exit 0\nfi\n\nGIT_TARGET=\"${GIT_ADDRESS}\"\nif [ ! -z \"${GIT_USERNAME}\" ] && [ ! -z \"${GIT_ACCESS_TOKEN}\" ]; then\n    GIT_TARGET=\"https://${GIT_USERNAME}:${GIT_ACCESS_TOKEN}@$(echo -e ${GIT_ADDRESS} | cut -d/ -f3-)\"\nfi\n\necho -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Cloning repository from ${GIT_ADDRESS}...\"\nif [ -z \"${BRANCH}\" ]; then\n    git clone ${GIT_TARGET} .\nelse\n    git clone --single-branch --branch ${BRANCH} ${GIT_TARGET} .\nfi\n\nif [ -f requirements.txt ]; then\n    echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Installing requirements.txt dependencies...\"\n    pip install -U --no-cache-dir -r requirements.txt\nfi\n\necho -e \"\\033[1;32m[DIAWW.DEV]\\033[0m Installation complete!\"",
+            "script": "#!/bin/bash\n# DIAWW.DEV - Pterodactyl Python Installation Script\n\napt update -y\napt install -y git curl ca-certificates python3 python3-pip\n\nmkdir -p /mnt/server\ncd /mnt/server\n\nif [ \"${USER_UPLOAD}\" == \"true\" ] || [ \"${USER_UPLOAD}\" == \"1\" ]; then\n    echo -e \"\\033[1;33m[DIAWW.DEV]\\033[0m USER_UPLOAD enabled. Skipping git clone.\"\n    exit 0\nfi\n\nif [ -z \"${GIT_ADDRESS}\" ]; then\n    echo -e \"\\033[1;33m[DIAWW.DEV]\\033[0m No GIT_ADDRESS specified. Creating default main.py...\"\n    if [ ! -f main.py ]; then\n        cat << 'EOF' > main.py\nimport time\nfrom datetime import datetime\n\nprint(\"[DIAWW.DEV] Python container is up and running!\")\nwhile True:\n    print(f\"[DIAWW.DEV] Server heartbeat tick: {datetime.utcnow().isoformat()}\")\n    time.sleep(30)\nEOF\n    fi\n    exit 0\nfi\n\nGIT_TARGET=\"${GIT_ADDRESS}\"\nif [ ! -z \"${GIT_USERNAME}\" ] && [ ! -z \"${GIT_ACCESS_TOKEN}\" ]; then\n    GIT_TARGET=\"https://${GIT_USERNAME}:${GIT_ACCESS_TOKEN}@$(echo -e ${GIT_ADDRESS} | cut -d/ -f3-)\"\nfi\n\necho -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Cloning repository from ${GIT_ADDRESS}...\"\nif [ -z \"${BRANCH}\" ]; then\n    git clone ${GIT_TARGET} .\nelse\n    git clone --single-branch --branch ${BRANCH} ${GIT_TARGET} .\nfi\n\nREQ_TARGET=\"${REQUIREMENTS_FILE}\"\nif [ -z \"${REQ_TARGET}\" ]; then REQ_TARGET=\"requirements.txt\"; fi\nif [ -f \"${REQ_TARGET}\" ]; then\n    echo -e \"\\033[1;36m[DIAWW.DEV]\\033[0m Installing dependencies from ${REQ_TARGET}...\"\n    pip install -U --no-cache-dir -r \"${REQ_TARGET}\"\nfi\n\necho -e \"\\033[1;32m[DIAWW.DEV]\\033[0m Installation complete!\"",
             "container": "python:3.12-slim",
             "entrypoint": "bash"
         }
@@ -46,6 +46,16 @@
             "user_viewable": true,
             "user_editable": true,
             "rules": "required|string|max:100",
+            "field_type": "text"
+        },
+        {
+            "name": "Requirements File (Optional)",
+            "description": "The requirements file to install Python dependencies from (defaults to requirements.txt). Optional: if file does not exist, it will be skipped safely.",
+            "env_variable": "REQUIREMENTS_FILE",
+            "default_value": "requirements.txt",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string|max:100",
             "field_type": "text"
         },
         {
@@ -70,7 +80,7 @@
         },
         {
             "name": "Additional Pip Packages",
-            "description": "Space-separated list of extra pip packages to install automatically on startup.",
+            "description": "Space-separated list of extra pip packages to install automatically on startup without modifying requirements.txt.",
             "env_variable": "PY_PACKAGES",
             "default_value": "",
             "user_viewable": true,
