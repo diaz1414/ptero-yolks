@@ -1,11 +1,11 @@
 <div align="center">
 
-# ⚡ DIAWW.DEV Yolks
+# ⚡ DIAWW.DEV Ptero-Yolks
 
 **High-Performance Custom Docker Images for Pterodactyl Panel**
 
-[![GitHub Actions Build](https://img.shields.io/badge/GitHub_Actions-Automated_Build-blue?logo=githubactions&logoColor=white)](https://github.com/DIAWWDEV/yolks/actions)
-[![Registry](https://img.shields.io/badge/GHCR-ghcr.io%2FDIAWWDEV%2Fyolks-2ea44f?logo=docker&logoColor=white)](https://github.com/DIAWWDEV/yolks/pkgs/container/yolks)
+[![GitHub Actions Build](https://img.shields.io/badge/GitHub_Actions-Automated_Build-blue?logo=githubactions&logoColor=white)](https://github.com/diaz1414/ptero-yolks/actions)
+[![Registry](https://img.shields.io/badge/GHCR-ghcr.io%2Fdiaz1414%2Fptero--yolks-2ea44f?logo=docker&logoColor=white)](https://github.com/diaz1414/ptero-yolks/pkgs/container/ptero-yolks)
 [![Maintainer](https://img.shields.io/badge/Maintainer-ferdiazprasida%40gmail.com-blueviolet?logo=gmail&logoColor=white)](mailto:ferdiazprasida@gmail.com)
 [![Website](https://img.shields.io/badge/Website-diaww.my.id-orange)](https://diaww.my.id)
 [![Architecture](https://img.shields.io/badge/Architectures-amd64%20%7C%20arm64-success)](#)
@@ -16,14 +16,14 @@
 
 ## 📖 Ringkasan
 
-Repository **`yolks`** ini menyediakan koleksi custom Docker images dan Pterodactyl Generic Eggs siap pakai yang dioptimalkan khusus untuk menjalankan berbagai bot Discord, aplikasi web, microservices, dan skrip berbasis **Node.js** dan **Python** di **Pterodactyl Panel**.
+Repository **`ptero-yolks`** ini menyediakan koleksi custom Docker images dan Pterodactyl Generic Eggs siap pakai yang dioptimalkan khusus untuk menjalankan berbagai bot Discord, aplikasi web, microservices, dan skrip berbasis **Node.js** dan **Python** di **Pterodactyl Panel**.
 
 Semua image dibangun di atas basis resmi Docker Hub Debian slim paling stabil (`-slim`), multi-arsitektur (`linux/amd64` dan `linux/arm64`), dilengkapi paket esensial (`ffmpeg`, `git`, `curl`, `build-essential`, `python3` untuk node-gyp, `iproute2`, `zip/unzip`), serta sistem penanganan repositori arsip otomatis untuk rilis legacy (seperti Debian Buster/Stretch).
 
 - **Brand:** `diaww.dev` ([https://diaww.my.id](https://diaww.my.id))
 - **Maintainer:** `ferdiazprasida@gmail.com`
-- **GitHub Repository:** [https://github.com/DIAWWDEV/yolks](https://github.com/DIAWWDEV/yolks)
-- **Container Registry:** `ghcr.io/DIAWWDEV/yolks:<tag>`
+- **GitHub Repository:** [https://github.com/diaz1414/ptero-yolks](https://github.com/diaz1414/ptero-yolks)
+- **Container Registry:** `ghcr.io/diaz1414/ptero-yolks:<tag>`
 
 ---
 
@@ -35,34 +35,34 @@ Semua image dapat ditarik langsung melalui GitHub Container Registry (GHCR):
 
 | Versi | Docker Hub Base | Tag GHCR | Arsitektur | Keterangan |
 | :--- | :--- | :--- | :--- | :--- |
-| **Node.js 26** | `node:26-slim` | `ghcr.io/DIAWWDEV/yolks:nodejs_26` | `amd64`, `arm64` | Future / Next-Gen |
-| **Node.js 25** | `node:25-slim` | `ghcr.io/DIAWWDEV/yolks:nodejs_25` | `amd64`, `arm64` | Current / Latest |
-| **Node.js 24** | `node:24-slim` | `ghcr.io/DIAWWDEV/yolks:nodejs_24` | `amd64`, `arm64` | Active LTS |
-| **Node.js 23** | `node:23-slim` | `ghcr.io/DIAWWDEV/yolks:nodejs_23` | `amd64`, `arm64` | Odd Release |
-| **Node.js 22** | `node:22-slim` | `ghcr.io/DIAWWDEV/yolks:nodejs_22` | `amd64`, `arm64` | Active LTS |
-| **Node.js 21** | `node:21-slim` | `ghcr.io/DIAWWDEV/yolks:nodejs_21` | `amd64`, `arm64` | Odd Release |
-| **Node.js 20** | `node:20-slim` | `ghcr.io/DIAWWDEV/yolks:nodejs_20` | `amd64`, `arm64` | Maintenance LTS |
-| **Node.js 19** | `node:19-slim` | `ghcr.io/DIAWWDEV/yolks:nodejs_19` | `amd64`, `arm64` | Odd Release |
-| **Node.js 18** | `node:18-slim` | `ghcr.io/DIAWWDEV/yolks:nodejs_18` | `amd64`, `arm64` | Maintenance LTS |
-| **Node.js 17** | `node:17-slim` | `ghcr.io/DIAWWDEV/yolks:nodejs_17` | `amd64`, `arm64` | Odd Release |
-| **Node.js 16** | `node:16-slim` | `ghcr.io/DIAWWDEV/yolks:nodejs_16` | `amd64`, `arm64` | Legacy LTS |
-| **Node.js 15** | `node:15-slim` | `ghcr.io/DIAWWDEV/yolks:nodejs_15` | `amd64`, `arm64` | Legacy Archive |
-| **Node.js 14** | `node:14-slim` | `ghcr.io/DIAWWDEV/yolks:nodejs_14` | `amd64`, `arm64` | Legacy Archive |
+| **Node.js 26** | `node:26-slim` | `ghcr.io/diaz1414/ptero-yolks:nodejs_26` | `amd64`, `arm64` | Future / Next-Gen |
+| **Node.js 25** | `node:25-slim` | `ghcr.io/diaz1414/ptero-yolks:nodejs_25` | `amd64`, `arm64` | Current / Latest |
+| **Node.js 24** | `node:24-slim` | `ghcr.io/diaz1414/ptero-yolks:nodejs_24` | `amd64`, `arm64` | Active LTS |
+| **Node.js 23** | `node:23-slim` | `ghcr.io/diaz1414/ptero-yolks:nodejs_23` | `amd64`, `arm64` | Odd Release |
+| **Node.js 22** | `node:22-slim` | `ghcr.io/diaz1414/ptero-yolks:nodejs_22` | `amd64`, `arm64` | Active LTS |
+| **Node.js 21** | `node:21-slim` | `ghcr.io/diaz1414/ptero-yolks:nodejs_21` | `amd64`, `arm64` | Odd Release |
+| **Node.js 20** | `node:20-slim` | `ghcr.io/diaz1414/ptero-yolks:nodejs_20` | `amd64`, `arm64` | Maintenance LTS |
+| **Node.js 19** | `node:19-slim` | `ghcr.io/diaz1414/ptero-yolks:nodejs_19` | `amd64`, `arm64` | Odd Release |
+| **Node.js 18** | `node:18-slim` | `ghcr.io/diaz1414/ptero-yolks:nodejs_18` | `amd64`, `arm64` | Maintenance LTS |
+| **Node.js 17** | `node:17-slim` | `ghcr.io/diaz1414/ptero-yolks:nodejs_17` | `amd64`, `arm64` | Odd Release |
+| **Node.js 16** | `node:16-slim` | `ghcr.io/diaz1414/ptero-yolks:nodejs_16` | `amd64`, `arm64` | Legacy LTS |
+| **Node.js 15** | `node:15-slim` | `ghcr.io/diaz1414/ptero-yolks:nodejs_15` | `amd64`, `arm64` | Legacy Archive |
+| **Node.js 14** | `node:14-slim` | `ghcr.io/diaz1414/ptero-yolks:nodejs_14` | `amd64`, `arm64` | Legacy Archive |
 
 ### 🐍 Python Runtimes (10 Images)
 
 | Versi | Docker Hub Base | Tag GHCR | Arsitektur | Keterangan |
 | :--- | :--- | :--- | :--- | :--- |
-| **Python 3.15** | `python:3.15-slim` | `ghcr.io/DIAWWDEV/yolks:python_3.15` | `amd64`, `arm64` | Future / Experimental |
-| **Python 3.14** | `python:3.14-slim` | `ghcr.io/DIAWWDEV/yolks:python_3.14` | `amd64`, `arm64` | Pre-Release / Development |
-| **Python 3.13** | `python:3.13-slim` | `ghcr.io/DIAWWDEV/yolks:python_3.13` | `amd64`, `arm64` | Latest Stable |
-| **Python 3.12** | `python:3.12-slim` | `ghcr.io/DIAWWDEV/yolks:python_3.12` | `amd64`, `arm64` | Stable / Recommended |
-| **Python 3.11** | `python:3.11-slim` | `ghcr.io/DIAWWDEV/yolks:python_3.11` | `amd64`, `arm64` | Stable |
-| **Python 3.10** | `python:3.10-slim` | `ghcr.io/DIAWWDEV/yolks:python_3.10` | `amd64`, `arm64` | Stable |
-| **Python 3.9** | `python:3.9-slim` | `ghcr.io/DIAWWDEV/yolks:python_3.9` | `amd64`, `arm64` | Security Support |
-| **Python 3.8** | `python:3.8-slim` | `ghcr.io/DIAWWDEV/yolks:python_3.8` | `amd64`, `arm64` | Security Support |
-| **Python 3.7** | `python:3.7-slim` | `ghcr.io/DIAWWDEV/yolks:python_3.7` | `amd64`, `arm64` | Legacy Archive |
-| **Python 2.7** | `python:2.7-slim` | `ghcr.io/DIAWWDEV/yolks:python_2.7` | `amd64`, `arm64` | Legacy Python 2 |
+| **Python 3.15** | `python:3.15-slim` | `ghcr.io/diaz1414/ptero-yolks:python_3.15` | `amd64`, `arm64` | Future / Experimental |
+| **Python 3.14** | `python:3.14-slim` | `ghcr.io/diaz1414/ptero-yolks:python_3.14` | `amd64`, `arm64` | Pre-Release / Development |
+| **Python 3.13** | `python:3.13-slim` | `ghcr.io/diaz1414/ptero-yolks:python_3.13` | `amd64`, `arm64` | Latest Stable |
+| **Python 3.12** | `python:3.12-slim` | `ghcr.io/diaz1414/ptero-yolks:python_3.12` | `amd64`, `arm64` | Stable / Recommended |
+| **Python 3.11** | `python:3.11-slim` | `ghcr.io/diaz1414/ptero-yolks:python_3.11` | `amd64`, `arm64` | Stable |
+| **Python 3.10** | `python:3.10-slim` | `ghcr.io/diaz1414/ptero-yolks:python_3.10` | `amd64`, `arm64` | Stable |
+| **Python 3.9** | `python:3.9-slim` | `ghcr.io/diaz1414/ptero-yolks:python_3.9` | `amd64`, `arm64` | Security Support |
+| **Python 3.8** | `python:3.8-slim` | `ghcr.io/diaz1414/ptero-yolks:python_3.8` | `amd64`, `arm64` | Security Support |
+| **Python 3.7** | `python:3.7-slim` | `ghcr.io/diaz1414/ptero-yolks:python_3.7` | `amd64`, `arm64` | Legacy Archive |
+| **Python 2.7** | `python:2.7-slim` | `ghcr.io/diaz1414/ptero-yolks:python_2.7` | `amd64`, `arm64` | Legacy Python 2 |
 
 ---
 
@@ -141,14 +141,14 @@ Semua image dapat ditarik langsung melalui GitHub Container Registry (GHCR):
 
 Secara bawaan, GitHub Container Registry (GHCR) membuat package yang baru di-push berstatus **Private**. Agar node Pterodactyl (Wings) dapat menarik (pull) image tanpa kendala autentikasi `unauthorized`, ubah visibilitas package menjadi **Public**:
 
-1. Buka profil akun GitHub atau organisasi Anda di peramban:
-   `https://github.com/DIAWWDEV?tab=packages` (atau buka halaman repository `yolks`, lalu klik menu **Packages** di sidebar kanan).
-2. Klik package bernama **`yolks`**.
+1. Buka halaman Packages di profil GitHub Anda:
+   `https://github.com/diaz1414?tab=packages` (atau buka repositori [diaz1414/ptero-yolks](https://github.com/diaz1414/ptero-yolks), lalu klik menu **Packages** di sidebar kanan).
+2. Klik package bernama **`ptero-yolks`**.
 3. Di sebelah kanan atas halaman package, klik tombol **Package settings**.
 4. Gulir ke bawah hingga bagian **Danger Zone**.
 5. Pada bagian **Change visibility**, klik tombol **Change visibility**.
-6. Pilih opsi **Public**, ketik nama package `yolks` untuk konfirmasi, lalu klik **I understand the consequences, change package visibility.**
-7. Selesai! Sekarang semua tag `ghcr.io/diawwdev/yolks:...` dapat di-pull oleh server mana pun tanpa login token.
+6. Pilih opsi **Public**, ketik nama package `ptero-yolks` untuk konfirmasi, lalu klik **I understand the consequences, change package visibility.**
+7. Selesai! Sekarang semua tag `ghcr.io/diaz1414/ptero-yolks:...` dapat di-pull oleh Pterodactyl tanpa login token.
 
 ---
 
@@ -179,8 +179,8 @@ Secara bawaan, GitHub Container Registry (GHCR) membuat package yang baru di-pus
 
 Jika Anda ingin memicu build ulang seluruh 23 image tanpa melakukan push kode baru:
 
-1. Buka tab **Actions** di repositori GitHub `yolks`:
-   `https://github.com/DIAWWDEV/yolks/actions`
+1. Buka tab **Actions** di repositori GitHub `ptero-yolks`:
+   `https://github.com/diaz1414/ptero-yolks/actions`
 2. Klik workflow **Build and Push Yolks** pada daftar di sebelah kiri.
 3. Klik tombol **Run workflow** di sebelah kanan atas.
 4. Pilih branch `main`, lalu klik **Run workflow**.
@@ -194,11 +194,10 @@ GitHub Actions akan menjalankan proses build matrix untuk seluruh 23 image secar
 - **Maintainer:** Ferdiaz Prasida
 - **Email:** [ferdiazprasida@gmail.com](mailto:ferdiazprasida@gmail.com)
 - **Website:** [https://diaww.my.id](https://diaww.my.id)
-- **GitHub:** [@DIAWWDEV](https://github.com/DIAWWDEV)
+- **GitHub:** [@diaz1414](https://github.com/diaz1414)
 
 ---
 
 <div align="center">
   <sub>Dibuat dengan ❤️ dan standar rekayasa terbaik untuk komunitas Pterodactyl Panel oleh <b>diaww.dev</b></sub>
 </div>
-
