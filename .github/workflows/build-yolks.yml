@@ -18,6 +18,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+    env:
+      IMAGE_REPO: ''
     strategy:
       fail-fast: false
       matrix:
