@@ -16,9 +16,9 @@
 
 ## 📖 Ringkasan
 
-Repository **`ptero-yolks`** menyediakan koleksi custom Docker images dan Pterodactyl Generic Eggs siap pakai yang dioptimalkan khusus untuk menjalankan berbagai bot Discord, aplikasi web, microservices, dan skrip berbasis **Node.js** dan **Python** di **Pterodactyl Panel**.
+Repository **`ptero-yolks`** menyediakan koleksi custom Docker images dan Pterodactyl Generic Eggs siap pakai yang dioptimalkan khusus untuk menjalankan berbagai bot Discord, aplikasi web, microservices, dan skrip berbasis **Node.js**, **Python**, dan **Bun** di **Pterodactyl Panel**.
 
-Semua image dibangun di atas basis resmi Docker Hub Debian slim paling stabil (`-slim`), arsitektur native `linux/amd64` (sangat cepat di-build), dilengkapi paket esensial (`ffmpeg`, `git`, `curl`, `build-essential`, `python3` untuk node-gyp, `typescript`, `ts-node`, `iproute2`, `zip/unzip`).
+Semua image dibangun di atas basis resmi Docker Hub Debian slim paling stabil (`-slim` / `-debian`), arsitektur native `linux/amd64` (sangat cepat di-build), dilengkapi paket esensial (`ffmpeg`, `imagemagick`, `git`, `curl`, `build-essential`, `python3` untuk node-gyp, `typescript`, `ts-node`, `iproute2`, `zip/unzip`).
 
 - **Brand:** `diaww.dev` ([https://diaww.my.id](https://diaww.my.id))
 - **Maintainer:** `ferdiazprasida@gmail.com`
@@ -27,9 +27,19 @@ Semua image dibangun di atas basis resmi Docker Hub Debian slim paling stabil (`
 
 ---
 
-## 📦 Daftar Image Aktif (18 Images)
+## 📦 Daftar Image Aktif (23 Images)
 
 Semua image dapat ditarik langsung melalui GitHub Container Registry (GHCR):
+
+### 🥟 Bun Runtimes (5 Images Cepat)
+
+| Versi | Docker Hub Base | Tag GHCR | Arsitektur | Keterangan |
+| :--- | :--- | :--- | :--- | :--- |
+| **Bun Latest** | `oven/bun:debian` | `ghcr.io/diaz1414/ptero-yolks:bun_latest` | `linux/amd64` | Production Default / Latest Stable |
+| **Bun 1.3** | `oven/bun:1.3-debian` | `ghcr.io/diaz1414/ptero-yolks:bun_1.3` | `linux/amd64` | Fullstack Dev + Bun.SQL |
+| **Bun 1.2** | `oven/bun:1.2-debian` | `ghcr.io/diaz1414/ptero-yolks:bun_1.2` | `linux/amd64` | Stable Release |
+| **Bun 1.1** | `oven/bun:1.1-debian` | `ghcr.io/diaz1414/ptero-yolks:bun_1.1` | `linux/amd64` | Maintenance / LTS |
+| **Bun Canary** | `oven/bun:canary-debian` | `ghcr.io/diaz1414/ptero-yolks:bun_canary` | `linux/amd64` | Bleeding Edge / Nightly |
 
 ### 🟢 Node.js Runtimes (8 Images Modern)
 
@@ -67,10 +77,17 @@ Semua image dapat ditarik langsung melalui GitHub Container Registry (GHCR):
 .
 ├── .github/
 │   └── workflows/
-│       └── build-yolks.yml         # Matrix workflow build & push 18 image otomatis ke GHCR
+│       └── build-yolks.yml         # Matrix workflow build & push 23 image otomatis ke GHCR
 ├── eggs/
+│   ├── egg-bun.json                # Pterodactyl Egg PTDL_v2 untuk Bun (1.1, 1.2, 1.3, Latest, Canary)
 │   ├── egg-nodejs-generic.json     # Pterodactyl Egg PTDL_v2 untuk Node.js (18 s/d 26)
 │   └── egg-python-generic.json     # Pterodactyl Egg PTDL_v2 untuk Python (2.7, 3.7 s/d 3.15)
+├── bun/
+│   ├── 1.1/     (Dockerfile, entrypoint.sh)
+│   ├── 1.2/     (Dockerfile, entrypoint.sh)
+│   ├── 1.3/     (Dockerfile, entrypoint.sh)
+│   ├── latest/  (Dockerfile, entrypoint.sh)
+│   └── canary/  (Dockerfile, entrypoint.sh)
 ├── nodejs/
 │   ├── 18/  (Dockerfile, entrypoint.sh)
 │   ├── 20/  (Dockerfile, entrypoint.sh)
@@ -102,6 +119,7 @@ Semua image dapat ditarik langsung melalui GitHub Container Registry (GHCR):
 
 1. **Unduh File Egg:**
    Unduh file yang Anda butuhkan dari folder `eggs/`:
+   - [eggs/egg-bun.json](eggs/egg-bun.json) (untuk Bun Runtime)
    - [eggs/egg-nodejs-generic.json](eggs/egg-nodejs-generic.json) (untuk Node.js)
    - [eggs/egg-python-generic.json](eggs/egg-python-generic.json) (untuk Python)
 2. **Buka Admin Panel Pterodactyl:**
@@ -113,11 +131,11 @@ Semua image dapat ditarik langsung melalui GitHub Container Registry (GHCR):
 5. **Klik Tombol Import Egg:**
    Di halaman detail Nest, klik tombol biru **Import Egg**.
 6. **Unggah File:**
-   - Pilih file `egg-nodejs-generic.json` atau `egg-python-generic.json`.
+   - Pilih file `egg-bun.json`, `egg-nodejs-generic.json`, atau `egg-python-generic.json`.
    - Pilih Nest yang dituju.
    - Klik **Import**.
 7. **Pilih Versi Docker Image di Server:**
-   - Di tab **Startup** server, pilih dropdown **Docker Image** sesuai versi yang Anda inginkan (misal Node.js 22, 20, 24, atau Python 3.12, 3.11).
+   - Di tab **Startup** server, pilih dropdown **Docker Image** sesuai versi yang Anda inginkan (misal Bun Latest/1.3/1.2/1.1/Canary, Node.js 22, atau Python 3.12).
 
 ---
 
